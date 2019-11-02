@@ -1,0 +1,44 @@
+<div class="container">
+    <h2>{{title}}</h2>
+
+    <div class="message success" *ngIf="status == 'success'">
+        El Proyecto se ha Creado Correctamente, puedes <a href="#">verlo aquí</a>
+    </div>
+    <div class="message failed" *ngIf="status =='failed'">
+        El Proyecto no se ha podido Crear
+    </div>
+
+    <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
+        <p>
+            <label for="name">Nombre del Proyecto: </label>
+            <input type="text" name="name" #name="ngModel" [(ngModel)]="project.name" required />
+            <span class="form_error" *ngIf="name.touched && !name.valid">El Nombre es Obligatorio</span>
+        </p>
+        <p>
+            <label for="description">Descripción del Proyecto: </label>
+            <textarea name="description" #description="ngModel" [(ngModel)]="project.description" required></textarea>
+            <span class="form_error" *ngIf="description.touched && !description.valid">La Descripción es
+                Obligatoria</span>
+        </p>
+        <p>
+            <label for="category">Categoria del Proyecto: </label>
+            <input type="text" name="category" #category="ngModel" [(ngModel)]="project.category" required />
+            <span class="form_error" *ngIf="category.touched && !category.valid">La Categoria es Obligatoria</span>
+        </p>
+        <p>
+            <label for="year">Año de Lanzamiento: </label>
+            <input type="number" name="year" #year="ngModel" [(ngModel)]="project.year" />
+        </p>
+        <p>
+            <label for="langs">Lenguajes Utilizados: </label>
+            <input type="text" name="langs" #langs="ngModel" [(ngModel)]="project.langs" required />
+            <span class="form_error" *ngIf="langs.touched && !langs.valid">Los Lenguajes son Obligatorios</span>
+        </p>
+        <p>
+            <label for="image">Imagén del Proyecto: </label>
+            <input type="file" name="image" placeholder="Subir Imagén" (change)="fileChangeEvent($event)" />
+        </p>
+
+        <input type="submit" value="Crear Proyecto" [disabled]="!projectForm.form.valid">
+    </form>
+</div>
